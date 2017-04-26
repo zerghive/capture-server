@@ -1,0 +1,251 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/hM-z7jdSFvJm73REigMTy86ze6o\"",
+ "discoveryVersion": "v1",
+ "id": "cert:v1",
+ "name": "cert",
+ "version": "v1",
+ "description": "Certificates API",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://appnetscope.appspot.com/_ah/api/cert/v1/",
+ "basePath": "/_ah/api/cert/v1/",
+ "rootUrl": "https://appnetscope.appspot.com/_ah/api/",
+ "servicePath": "cert/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "schemas": {
+  "ApiError": {
+   "id": "ApiError",
+   "type": "object",
+   "properties": {
+    "code": {
+     "type": "string"
+    },
+    "message": {
+     "type": "string"
+    },
+    "retry": {
+     "type": "boolean"
+    },
+    "url": {
+     "type": "string"
+    }
+   }
+  },
+  "SignAndroidCertRequest": {
+   "id": "SignAndroidCertRequest",
+   "type": "object",
+   "properties": {
+    "DeviceToken": {
+     "type": "string",
+     "format": "byte"
+    },
+    "HardwareClass": {
+     "type": "string"
+    },
+    "HardwareModel": {
+     "type": "string"
+    },
+    "Name": {
+     "type": "string"
+    },
+    "Udid": {
+     "type": "string"
+    }
+   }
+  },
+  "SignAndroidCertResponse": {
+   "id": "SignAndroidCertResponse",
+   "type": "object",
+   "properties": {
+    "CA": {
+     "type": "string",
+     "format": "byte"
+    },
+    "CAUrl": {
+     "type": "string"
+    },
+    "Cert": {
+     "type": "string",
+     "format": "byte"
+    },
+    "Error": {
+     "$ref": "ApiError"
+    },
+    "Key": {
+     "type": "string",
+     "format": "byte"
+    },
+    "NotAfter": {
+     "type": "string",
+     "format": "date-time"
+    }
+   }
+  },
+  "SignCertResponse": {
+   "id": "SignCertResponse",
+   "type": "object",
+   "properties": {
+    "CA": {
+     "type": "string",
+     "format": "byte"
+    },
+    "CAUrl": {
+     "type": "string"
+    },
+    "Cert": {
+     "type": "string",
+     "format": "byte"
+    },
+    "Error": {
+     "$ref": "ApiError"
+    },
+    "NotAfter": {
+     "type": "string",
+     "format": "date-time"
+    }
+   }
+  },
+  "SignClientCertRequest": {
+   "id": "SignClientCertRequest",
+   "type": "object",
+   "properties": {
+    "DeviceToken": {
+     "type": "string",
+     "format": "byte"
+    },
+    "PublicKey": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "SignVPNCertRequest": {
+   "id": "SignVPNCertRequest",
+   "type": "object",
+   "properties": {
+    "PublicKey": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "SignVPNCertResponse": {
+   "id": "SignVPNCertResponse",
+   "type": "object",
+   "properties": {
+    "Error": {
+     "$ref": "ApiError"
+    },
+    "RootCA": {
+     "type": "string",
+     "format": "byte"
+    },
+    "RootCAUrl": {
+     "type": "string"
+    },
+    "TlsCA": {
+     "type": "string",
+     "format": "byte"
+    },
+    "TlsCAKey": {
+     "type": "string",
+     "format": "byte"
+    },
+    "TlsCAUrl": {
+     "type": "string"
+    },
+    "VpnCert": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  }
+ },
+ "methods": {
+  "signandroidcert": {
+   "id": "cert.signandroidcert",
+   "path": "signandroidcert",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "SignAndroidCertRequest",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "SignAndroidCertResponse"
+   }
+  },
+  "signclientcert": {
+   "id": "cert.signclientcert",
+   "path": "signclientcert",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "SignClientCertRequest",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "SignCertResponse"
+   }
+  },
+  "signvpncert": {
+   "id": "cert.signvpncert",
+   "path": "signvpncert",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "SignVPNCertRequest",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "SignVPNCertResponse"
+   }
+  }
+ }
+}

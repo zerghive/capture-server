@@ -1,0 +1,79 @@
+{
+  "ClientIP": "10.42.42.2",
+  "Filters": {
+    "GUID1": {
+      "RequestFilter": {
+        "Triggers": [
+          {
+            "Type": "Request",
+            "Key": "Host",
+            "Regexp": "^ihelper.mts.by$",
+            "Counting": false
+          }
+        ],
+        "Actions": [
+          {
+            "Type": "Passthrough",
+            "Payload": {}
+          }
+        ]
+      },
+      "ResponseFilter": {
+        "Triggers": [
+          {
+            "Type": "",
+            "Key": "",
+            "Regexp": "",
+            "Counting": false
+          }
+        ],
+        "Actions": [
+          {
+            "Type": "Delay",
+            "Payload": {
+              "DurationMs": 0
+            }
+          }
+        ]
+      },
+      "MaxCount": 0
+    },
+    "GUID2": {
+      "RequestFilter": {
+        "Triggers": [
+          {
+            "Type": "Request",
+            "Key": "RequestURI",
+            "Regexp": "^/_ah/api/share/v1/create$",
+            "Counting": false
+          }
+        ],
+        "Actions": [
+          {
+            "Type": "Passthrough",
+            "Payload": {}
+          }
+        ]
+      },
+      "ResponseFilter": {
+        "Triggers": [
+          {
+            "Type": "",
+            "Key": "",
+            "Regexp": "",
+            "Counting": false
+          }
+        ],
+        "Actions": [
+          {
+            "Type": "Delay",
+            "Payload": {
+              "DurationMs": 0
+            }
+          }
+        ]
+      },
+      "MaxCount": 0
+    }
+  }
+}

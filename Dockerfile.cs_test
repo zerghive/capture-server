@@ -1,0 +1,17 @@
+FROM appscope/cs_base
+
+RUN sudo apt-get install -y openvpn openssl iptables
+
+WORKDIR /etc/openvpn
+ADD misc/openvpn_server.conf server.conf
+ADD https://storage.googleapis.com/dev.appscope.net/tools/appscope-vpnserver-keys /etc/openvpn/appscope-vpnserver-keys
+RUN chmod +x appscope-vpnserver-keys
+RUN ./appscope-vpnserver-keys -ip=10.0.1.21 -host=dev-dm-1.appscope.net
+RUN openssl dhparam -out dh2048.pem 2048
+
+EXPOSE 1194/udp
+
+ADD misc/run_openvpn.sh /etc/openvpn/run_openvpn.sh
+RUN chmod +x /etc/openvpn/run_openvpn.sh
+
+CMD /etc/openvpn/run_openvpn.sh

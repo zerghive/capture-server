@@ -1,0 +1,8 @@
+458c458
+< 	C.nfct_bitmask_clear((*C.struct_nfct_bitmask)(b))
+---
+> 	panic("nfct_bitmask_clear not implemented")
+463c463
+< 	return (bool)(C.nfct_bitmask_equal((*C.struct_nfct_bitmask)(b1), (*C.struct_nfct_bitmask)(b2)))
+---
+> 	panic("nfct_bitmask_equal not implemented")

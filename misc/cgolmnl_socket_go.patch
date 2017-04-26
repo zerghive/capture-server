@@ -1,0 +1,5 @@
+36,37c36
+< 	ret, err := C.mnl_socket_fdopen(C.int(fd))
+< 	return (*Socket)(ret), err
+---
+> 	panic("required linking with development version of libmnl")

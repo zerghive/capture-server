@@ -1,0 +1,44 @@
+{
+  "ClientIP": "10.42.42.2",
+  "Filters": {
+    "Drop first 3 server responses of each API": {
+      "RequestFilter": {
+        "Triggers": [
+          {
+            "Type": "Request",
+            "Key": "Host",
+            "Regexp": "^appnetscope.appspot.com$",
+            "Counting": false
+          },
+          {
+            "Type": "Request",
+            "Key": "RequestURI",
+            "Regexp": "^/_ah/api/share/v1/[a-z]*",
+            "Counting": true
+          }
+        ],
+        "Actions": null,
+        "MaxCount": 3
+      },
+      "ResponseFilter": {
+        "Triggers": [
+          {
+            "Type": "",
+            "Key": "",
+            "Regexp": "",
+            "Counting": false
+          }
+        ],
+        "Actions": [
+          {
+            "Type": "Delay",
+            "Payload": {
+              "DurationMs": 0
+            }
+          }
+        ],
+        "MaxCount": 0
+      }
+    }
+  }
+}

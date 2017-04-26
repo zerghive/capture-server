@@ -1,0 +1,543 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/Iiha01kfI7dsDooRR1okHhdz3AE\"",
+ "discoveryVersion": "v1",
+ "id": "share:v1",
+ "name": "share",
+ "version": "v1",
+ "description": "Share API",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://appnetscope.appspot.com/_ah/api/share/v1/",
+ "basePath": "/_ah/api/share/v1/",
+ "rootUrl": "https://appnetscope.appspot.com/_ah/api/",
+ "servicePath": "share/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "schemas": {
+  "ApiError": {
+   "id": "ApiError",
+   "type": "object",
+   "properties": {
+    "code": {
+     "type": "string"
+    },
+    "message": {
+     "type": "string"
+    },
+    "retry": {
+     "type": "boolean"
+    },
+    "url": {
+     "type": "string"
+    }
+   }
+  },
+  "AppendFilesRequest": {
+   "id": "AppendFilesRequest",
+   "type": "object",
+   "properties": {
+    "Files": {
+     "type": "array",
+     "items": {
+      "$ref": "FileItem"
+     }
+    },
+    "ShareToken": {
+     "type": "string"
+    }
+   }
+  },
+  "AppendNotesRequest": {
+   "id": "AppendNotesRequest",
+   "type": "object",
+   "properties": {
+    "Notes": {
+     "type": "array",
+     "items": {
+      "$ref": "Note"
+     }
+    },
+    "ShareToken": {
+     "type": "string"
+    }
+   }
+  },
+  "ConfirmUploadRequest": {
+   "id": "ConfirmUploadRequest",
+   "type": "object",
+   "properties": {
+    "DeviceToken": {
+     "type": "string",
+     "format": "byte"
+    },
+    "UploadTokens": {
+     "type": "array",
+     "items": {
+      "$ref": "Token"
+     }
+    }
+   }
+  },
+  "CreateReq": {
+   "id": "CreateReq",
+   "type": "object",
+   "properties": {
+    "Description": {
+     "type": "string"
+    },
+    "DeviceToken": {
+     "type": "string",
+     "format": "byte"
+    },
+    "Email": {
+     "type": "string"
+    },
+    "Title": {
+     "type": "string"
+    }
+   }
+  },
+  "CreateResp": {
+   "id": "CreateResp",
+   "type": "object",
+   "properties": {
+    "Error": {
+     "$ref": "ApiError"
+    },
+    "ShareToken": {
+     "type": "string",
+     "format": "byte"
+    },
+    "ShareUrl": {
+     "type": "string"
+    },
+    "UsePrivateStorage": {
+     "type": "boolean"
+    }
+   }
+  },
+  "DeleteSnapshotRequest": {
+   "id": "DeleteSnapshotRequest",
+   "type": "object",
+   "properties": {
+    "DeviceToken": {
+     "type": "string",
+     "format": "byte"
+    },
+    "ShareToken": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "DownloadFileItem": {
+   "id": "DownloadFileItem",
+   "type": "object",
+   "properties": {
+    "Name": {
+     "type": "string"
+    },
+    "Status": {
+     "type": "string"
+    },
+    "Tag": {
+     "type": "string"
+    },
+    "Url": {
+     "type": "string"
+    }
+   }
+  },
+  "FileAccessRequest": {
+   "id": "FileAccessRequest",
+   "type": "object",
+   "properties": {
+    "ShareToken": {
+     "type": "string"
+    }
+   }
+  },
+  "FileAccessResponse": {
+   "id": "FileAccessResponse",
+   "type": "object",
+   "properties": {
+    "CreatedOn": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "Description": {
+     "type": "string"
+    },
+    "Error": {
+     "$ref": "ApiError"
+    },
+    "Files": {
+     "type": "array",
+     "items": {
+      "$ref": "DownloadFileItem"
+     }
+    },
+    "Notes": {
+     "type": "array",
+     "items": {
+      "$ref": "Note"
+     }
+    },
+    "Title": {
+     "type": "string"
+    },
+    "UsePrivateStorage": {
+     "type": "boolean"
+    }
+   }
+  },
+  "FileGroupInfo": {
+   "id": "FileGroupInfo",
+   "type": "object",
+   "properties": {
+    "Status": {
+     "type": "string"
+    },
+    "Tag": {
+     "type": "string"
+    }
+   }
+  },
+  "FileItem": {
+   "id": "FileItem",
+   "type": "object",
+   "properties": {
+    "MimeType": {
+     "type": "string"
+    },
+    "Name": {
+     "type": "string"
+    },
+    "Size": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "Tag": {
+     "type": "string"
+    }
+   }
+  },
+  "GetSharesRequest": {
+   "id": "GetSharesRequest",
+   "type": "object",
+   "properties": {
+    "DeviceToken": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "GetSharesResponse": {
+   "id": "GetSharesResponse",
+   "type": "object",
+   "properties": {
+    "Error": {
+     "$ref": "ApiError"
+    },
+    "Items": {
+     "type": "array",
+     "items": {
+      "$ref": "ShareItem"
+     }
+    }
+   }
+  },
+  "Note": {
+   "id": "Note",
+   "type": "object",
+   "properties": {
+    "Data": {
+     "type": "string"
+    },
+    "Id": {
+     "type": "string"
+    }
+   }
+  },
+  "ShareItem": {
+   "id": "ShareItem",
+   "type": "object",
+   "properties": {
+    "Description": {
+     "type": "string"
+    },
+    "FileGroupStatus": {
+     "type": "array",
+     "items": {
+      "$ref": "FileGroupInfo"
+     }
+    },
+    "Title": {
+     "type": "string"
+    },
+    "UploadedOn": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "Url": {
+     "type": "string"
+    }
+   }
+  },
+  "Token": {
+   "id": "Token",
+   "type": "object",
+   "properties": {
+    "Token": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "UploadFileItem": {
+   "id": "UploadFileItem",
+   "type": "object",
+   "properties": {
+    "MimeType": {
+     "type": "string"
+    },
+    "Name": {
+     "type": "string"
+    },
+    "Size": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "Tag": {
+     "type": "string"
+    },
+    "Token": {
+     "type": "string",
+     "format": "byte"
+    },
+    "Url": {
+     "type": "string"
+    }
+   }
+  },
+  "UploadFilesRequest": {
+   "id": "UploadFilesRequest",
+   "type": "object",
+   "properties": {
+    "DeviceToken": {
+     "type": "string",
+     "format": "byte"
+    },
+    "Files": {
+     "type": "array",
+     "items": {
+      "$ref": "FileItem"
+     }
+    },
+    "ShareToken": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "UploadFilesResponse": {
+   "id": "UploadFilesResponse",
+   "type": "object",
+   "properties": {
+    "Error": {
+     "$ref": "ApiError"
+    },
+    "Files": {
+     "type": "array",
+     "items": {
+      "$ref": "UploadFileItem"
+     }
+    }
+   }
+  },
+  "UploadStatusRequest": {
+   "id": "UploadStatusRequest",
+   "type": "object",
+   "properties": {
+    "DeviceToken": {
+     "type": "string",
+     "format": "byte"
+    },
+    "Status": {
+     "type": "string"
+    },
+    "UploadToken": {
+     "type": "string",
+     "format": "byte"
+    }
+   }
+  },
+  "VoidResponse": {
+   "id": "VoidResponse",
+   "type": "object",
+   "properties": {
+    "Error": {
+     "$ref": "ApiError"
+    }
+   }
+  }
+ },
+ "methods": {
+  "accessfiles": {
+   "id": "share.accessfiles",
+   "path": "accessfiles",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "FileAccessRequest",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "FileAccessResponse"
+   }
+  },
+  "appendfiles": {
+   "id": "share.appendfiles",
+   "path": "appendfiles",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "AppendFilesRequest",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "UploadFilesResponse"
+   }
+  },
+  "appendnotes": {
+   "id": "share.appendnotes",
+   "path": "appendnotes",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "AppendNotesRequest",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "VoidResponse"
+   }
+  },
+  "confirmupload": {
+   "id": "share.confirmupload",
+   "path": "confirmupload",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "ConfirmUploadRequest",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "VoidResponse"
+   }
+  },
+  "create": {
+   "id": "share.create",
+   "path": "create",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "CreateReq",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "CreateResp"
+   }
+  },
+  "delete": {
+   "id": "share.delete",
+   "path": "delete",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "DeleteSnapshotRequest",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "VoidResponse"
+   }
+  },
+  "getmy": {
+   "id": "share.getmy",
+   "path": "getmy",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "GetSharesRequest",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "GetSharesResponse"
+   }
+  },
+  "requestupload": {
+   "id": "share.requestupload",
+   "path": "requestupload",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "UploadFilesRequest",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "UploadFilesResponse"
+   }
+  },
+  "uploadstatus": {
+   "id": "share.uploadstatus",
+   "path": "uploadstatus",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "UploadStatusRequest",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "VoidResponse"
+   }
+  }
+ }
+}

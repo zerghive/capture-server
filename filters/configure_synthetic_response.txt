@@ -1,0 +1,39 @@
+{
+  "ClientIP": "10.42.42.1",
+  "Filters": {
+    "Synthetic response": {
+      "RequestFilter": {
+        "Triggers": [
+          {
+            "Type": "Request",
+            "Key": "Host",
+            "Regexp": "[a-z\.]*appscope\.net",
+            "Counting": true
+          }
+        ],
+        "Actions": [
+          {
+            "Type": "SyntheticResponse",
+            "Payload": {
+              "DataType": "",
+              "Data": "ABCDEF-abcdef",
+              "Fields": [
+                {
+                  "Key": "key1",
+                  "Value": "value1"
+                },
+                {
+                  "Key": "key2",
+                  "Value": "value2"
+                }
+              ],
+              "Status": 200
+            }
+          }
+        ],
+        "MaxCount": 2
+      },
+      "ResponseFilter": null
+    }
+  }
+}

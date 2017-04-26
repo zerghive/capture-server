@@ -1,0 +1,53 @@
+FROM ubuntu:14.04
+
+ADD misc/apt-ntop-stable.deb /tmp/apt-ntop-stable.deb
+RUN sudo dpkg -i tmp/apt-ntop-stable.deb
+
+RUN sudo apt-get update
+
+RUN sudo apt-get install -y tar git build-essential net-tools traceroute patch perl curl
+RUN sudo apt-get install -y pfring libnuma-dev libnetfilter-conntrack-dev libnetfilter-queue-dev libmnl-dev 
+
+#
+# Golang 
+# 
+ADD dist/go1.5.1.linux-amd64.tar.gz /usr/local
+ENV GOPATH /go
+ENV PATH ${PATH}:/usr/local/go/bin:${GOPATH}/bin
+
+# dependent on PF_RING 
+RUN go get github.com/google/gopacket
+RUN (cd $GOPATH/src/github.com/google/gopacket/examples/pfdump; CGO_LDFLAGS=-lnuma go build)
+
+# generic dependencies
+RUN go get -d github.com/golang/glog github.com/gorilla/mux github.com/rcrowley/go-librato 
+
+# Cloud Endpoints API generator 
+RUN go get google.golang.org/api/googleapi google.golang.org/api/google-api-go-generator
+RUN go install google.golang.org/api/googleapi
+RUN go install google.golang.org/api/google-api-go-generator
+
+# VICI
+RUN go get github.com/bronze1man/goStrongswanVici
+
+RUN go get golang.org/x/net/context
+
+#
+# LIBMNL
+#
+ADD misc/cgolmnl_socket_go.patch /tmp/cgolmnl_socket_go.patch
+RUN go get -d github.com/chamaken/cgolmnfct github.com/chamaken/cgolmnl
+RUN (cd $GOPATH/src/github.com/chamaken/cgolmnl; ./mktypes.sh)
+RUN mv $GOPATH/src/github.com/chamaken/cgolmnl/socket.go /tmp
+RUN patch -i /tmp/cgolmnl_socket_go.patch -o $GOPATH/src/github.com/chamaken/cgolmnl/socket.go /tmp/socket.go
+RUN CGO_LDFLAGS=-lmnl go build github.com/chamaken/cgolmnl
+RUN (cd $GOPATH/src/github.com/chamaken/cgolmnl/examples/netfilter/; CGO_LDFLAGS=-lmnl go build nfct-dump.go ztypes_linux_amd64.go)
+
+# LIBNETFILTER / CONNTRACK 
+ADD misc/cgolmnfct_conntrack_go.patch /tmp/cgolmnfct_conntrack_go.patch
+RUN mv $GOPATH/src/github.com/chamaken/cgolmnfct/conntrack.go /tmp
+RUN patch -i /tmp/cgolmnfct_conntrack_go.patch -o $GOPATH/src/github.com/chamaken/cgolmnfct/conntrack.go /tmp/conntrack.go
+RUN (cd $GOPATH/src/github.com/chamaken/cgolmnfct; ./mktypes.sh)
+RUN (cd $GOPATH/src/github.com/chamaken/cgolmnfct; go build)
+RUN (cd $GOPATH/src/github.com/chamaken/cgolmnfct/examples; go build nfct-mnl-dump.go ztypes_linux_amd64.go)
+
